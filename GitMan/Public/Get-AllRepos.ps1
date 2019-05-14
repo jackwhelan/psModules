@@ -21,7 +21,7 @@ Function Get-AllRepos
     [CmdletBinding()]
     param
     (
-        $user = "jackwhelan"
+        [string] $user = "jackwhelan"
     )
 
     (curl "https://api.github.com/users/$user/repos?page=1&per_page=100").Content |

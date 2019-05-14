@@ -32,9 +32,9 @@ Function Get-Repo
     [CmdletBinding()]
     param
     (
-        $repo = "psModules",
-        $user = "jackwhelan",
-        $server = "http://github.com"
+        [string] $repo = "psModules",
+        [string] $user = "jackwhelan",
+        [string] $server = "http://github.com"
     )
 
     git clone "$($server)/$($user)/$($repo)"

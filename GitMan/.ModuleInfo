@@ -1,0 +1,59 @@
+<module>
+	<name>
+		GitMan
+	</name>
+	
+	<description>
+		GitMan, short for GitManager, is a powershell module used to simplify Git commands for the purpose of convenience but also for automation.
+		For now the module is just intended for use with GitHub (although some cmdlets work for others) but the end goal is to make it as broadly
+		useful as possible.
+	</description>
+	
+	<version>
+		1.0
+	</version>
+	
+	<author>
+		Jack Whelan
+	</author>
+	
+	<cmdlets>
+		<public>
+			<function name="Get-Repo">
+				<parameters>
+					<string>repo</string>
+					<string>user</string>
+					<string>server</string>
+				</parameters>
+				
+				<operations>
+					<primary>
+						Clone $repo from $user on $server.
+					</primary>
+				</operations>
+			</function>
+			
+			<function name="Get-AllRepos">
+				<parameters>
+					<string>user</string>
+				</parameters>
+				
+				<operations>
+					Clone all repos from $user on github.
+				</operations>
+			</function>
+			
+			<function name="Get-Branches">
+				<parameters>
+					<switch>remote</switch>
+					<switch>local</switch>
+					<switch>all</switch>
+				</parameters>
+				
+				<operations>
+					
+				</operations>
+			</function>
+		</public>
+	</cmdlets>
+</module> 

@@ -24,4 +24,5 @@ Function New-Branch
 
     git branch $name
 	git checkout $name
+	git push --set-upstream origin $name
 }

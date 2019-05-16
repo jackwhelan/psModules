@@ -1,0 +1,1 @@
+New-Item alias:gar -value Get-ChildItem

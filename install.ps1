@@ -1,0 +1,1 @@
+Move-Item "GitMan" "C:\Program Files\WindowsPowerShell\Modules\"

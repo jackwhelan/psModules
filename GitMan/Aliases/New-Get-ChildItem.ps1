@@ -1,1 +1,0 @@
-Set-Alias -Name gar -Value Get-ChildItem

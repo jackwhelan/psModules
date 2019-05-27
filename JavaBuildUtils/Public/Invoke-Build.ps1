@@ -1,30 +1,20 @@
 <#
  .Synopsis
-  Clone a Repo.
+  Builds a project folder.
 
  .Description
-  Clone a specific git repo from a server using user provided repo name, username and server.
+  Builds all java source files in the directory this cmdlet is executed. (And in all subfolders if -r switch is used.
 
- .Parameter repo
-  The repo to clone.
-
- .Parameter user
-  The user the repo belongs to.
-
- .Parameter server
-  The server the repo is stored on.
+ .Parameter Recursive
+ If this parameter is used, all subfolders source files are also compiled.
 
  .Example
-   # Clone the Portfolio repo (using default server[github] and user[jackwhelan] values)
-   Get-Repo Portfolio
+   # Build a folder.
+   Invoke-Build
 
  .Example
-   # Clone a specific repo using a specificied user.
-   Get-Repo hello-world-java leereilly
-
- .Example
-   # Clone a specific repo using a specified user and a specified server.
-   Get-Repo helloword atlassian_tutorial https://bitbucket.org
+   # Build a folder and all subfolders.
+   Invoke-Build -Recursive
 #>
 
 Function Invoke-Build
@@ -35,29 +25,28 @@ Function Invoke-Build
         [Switch] $Recursive
     )
 
-    git clone "$($server)/$($user)/$($repo)"
-}
+    $root = Get-ChildItem | ?{$_.PSIsContainer}
 
-$root = Get-ChildItem | ?{$_.PSIsContainer}
-
-ForEach($folder in $root)
-{
-    Write-Host "====================`nEntering $($folder)...`n===================="
-    cd $folder
-
-    Write-Host "Creating bin folder..."
     if(Test-Path bin)
     {
-        Write-Host "Bin folder already exists for $($folder), Skipping..."
+        Write-Host "Bin folder already exists, Skipping..."
     }
     else
     {
-        mkdir bin
+        Write-Host "Creating bin folder..."
+        New-Item -ItemType Directory -Path "bin"
     }
 
-    Write-Host "Building java files in bin folder..."
-    javac -d "bin" *.java
+    ForEach($folder in $root)
+    {
+        Write-Host "====================`nEntering $($folder)...`n===================="
+        Set-Location $folder
 
-    Write-Host "Exiting $($folder)...`n====================`n`n`n"
-    cd ..
+        Write-Host "Building java files in bin folder..."
+        javac -d "../bin" *.java
+
+        Write-Host "Exiting $($folder)...`n====================`n`n`n"
+        Set-Location ..
+    }
 }
+

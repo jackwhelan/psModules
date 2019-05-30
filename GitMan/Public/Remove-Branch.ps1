@@ -20,7 +20,7 @@
   
 #>
 
-Function New-Branch
+Function Remove-Branch
 {
     [CmdletBinding()]
     param

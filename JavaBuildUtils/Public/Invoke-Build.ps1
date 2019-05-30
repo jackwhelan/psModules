@@ -39,14 +39,17 @@ Function Invoke-Build
 
     ForEach($folder in $root)
     {
-        Write-Host "====================`nEntering $($folder)...`n===================="
-        Set-Location $folder
+        if ($folder -ne "bin")
+        {
+            Write-Host "====================`nEntering $($folder)...`n===================="
+            Set-Location $folder
 
-        Write-Host "Building java files in bin folder..."
-        javac -d "../bin" *.java
+            Write-Host "Building java files in bin folder..."
+            javac -d "../bin" *.java
 
-        Write-Host "Exiting $($folder)...`n====================`n`n`n"
-        Set-Location ..
+            Write-Host "Exiting $($folder)...`n====================`n`n`n"
+            Set-Location ..
+        }
     }
 }
 

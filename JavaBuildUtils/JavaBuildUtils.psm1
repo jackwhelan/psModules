@@ -1,17 +1,13 @@
-﻿$Public  = @( Get-ChildItem -Path $PSScriptRoot\Public\*.ps1 -ErrorAction SilentlyContinue )
-$Private = @( Get-ChildItem -Path $PSScriptRoot\Private\*.ps1 -ErrorAction SilentlyContinue )
+﻿$Public  = "$($PSScriptRoot)\src\Public"
+$Private = "$($PSScriptRoot)\src\Private"
 
-#Dot source the files
-    Foreach($import in @($Public + $Private + $Aliases))
-    {
-        Try
-        {
-            . $import.fullname
-        }
-        Catch
-        {
-            Write-Error -Message "Failed to import function $($import.fullname): $_"
-        }
-    }
+Get-ChildItem $Private -Recurse -Include *.ps1 | ForEach-Object {
+	. $_.FullName
+}
 
-Export-ModuleMember -Function $Public.Basename
+Get-ChildItem $Public -Recurse -Include *.ps1 | ForEach-Object {
+	. $_.FullName
+	([System.Management.Automation.Language.Parser]::ParseInput((Get-Content -Path $_.FullName -Raw), [ref]$null, [ref]$null)).FindAll({$args[0] -is [System.Management.Automation.Language.FunctionDefinitionAst]}, $false) | ForEach-Object {
+		Export-ModuleMember $_.Name
+	}
+}

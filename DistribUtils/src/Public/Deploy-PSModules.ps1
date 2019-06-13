@@ -11,19 +11,25 @@
 	Process
 	{
 		$ModDirs | ForEach-Object -Process {
-			if(Test-Path $_.FullName)
+			if(Test-Path "$($_)")
 			{
-				Write-Verbose "Module folder $_.FullName detected: Continuing..."
+				Write-Verbose "Module folder $($_) detected: Continuing..."
 			}
 			else
 			{
-				Write-Verbose "Module folder $_.FullName does not exist: Creating..."
-				New-Item -folder "$_.FullName"
+				Write-Verbose "Module folder $($_) does not exist: Creating..."
+				New-Item -ItemType directory "$($_)"
 			}
 			
-			Write-Verbose "Entering $_.FullName"
-			Set-Location "$_"
-			
+			Write-Verbose "Entering $($_)"
+			Set-Location "$($_)"
+
+            if(Test-Path "psModules")
+            {
+                Write-Verbose "Old repository folder detected: Removing..."
+                Remove-Item "psModules" -Recurse -Force
+            }
+
 			Write-Verbose "Cloning latest psModules repository..."
 			git clone http://github.com/jackwhelan/psModules.git
 			
@@ -34,13 +40,13 @@
 			Get-ChildItem |
 			Where {$_.PsIsContainer} |
 			ForEach {
-				if(Test-Path "../$_")
+				if(Test-Path "../$($_)")
 				{
 					Write-Verbose "Old Module folder detected, removing..."
-					Remove-Item "../$_"
+					Remove-Item "../$($_)" -Recurse -Force
 				}
 				Write-Verbose "Installing New Module folder..."
-				Move-Item "$_" ".." 
+				Move-Item "$($_)" ".." 
 			}
 		}
 	}

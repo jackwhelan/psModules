@@ -40,14 +40,14 @@ Function Invoke-StatusCheck
 	{
 		$dir = Get-ChildItem | ? {$_.PSIsContainer}
 		Write-Host "Recursive switch specified, checking subdirectories..."
-		Write-Host "===================="
+		New-LineBreak -l 60 -s "="
 		$dir | Foreach-Object {
 			Set-Location $_.FullName
 			if (Test-Path ".git")
 			{
 				Write-Host "$_ is a git repository, checking status..."
 				git status
-				Write-Host "===================="
+				New-LineBreak -l 60 -s "="
 			}
 			else
 			{

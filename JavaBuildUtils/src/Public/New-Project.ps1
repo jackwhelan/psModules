@@ -18,5 +18,5 @@
 
     Write-Host "Creating Control class..."
     Set-Location src
-    Invoke-WebRequest -Uri "176.61.21.93/snippets/Control.java" -Method GET -OutFile "Control.java"
+    Invoke-WebRequest -Uri "https://www.jackwhelan.dev/snippets/Control.java" -Method GET -OutFile "Control.java"
 }

@@ -19,21 +19,17 @@
 Function New-LineBreak
 {
     [CmdletBinding()]
-    param
-    (
+    Param (
 		[int] $length,
 		[string] $symbol
     )
 	
-	Begin
-	{
+	Begin {
 		$line = ""
 	}
 	
-	Process
-	{
-		For ($i = 0; $i -lt $length; $i++)
-		{
+	Process {
+		For ($i = 0; $i -lt $length; $i++) {
 			$line = "$($line)$symbol"
 		}
 		

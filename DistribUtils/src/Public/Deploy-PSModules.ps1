@@ -3,20 +3,15 @@
     [CmdletBinding()]
     param()
 	
-	Begin
-	{
+	Begin {
 		$ModDirs = $ENV:PSModulePath -Split ";"
 	}
 	
-	Process
-	{
+	Process {
 		$ModDirs | ForEach-Object -Process {
-			if(Test-Path "$($_)")
-			{
+			if(Test-Path "$($_)") {
 				Write-Verbose "Module folder $($_) detected: Continuing..."
-			}
-			else
-			{
+			} else {
 				Write-Verbose "Module folder $($_) does not exist: Creating..."
 				New-Item -ItemType directory "$($_)"
 			}
@@ -24,8 +19,7 @@
 			Write-Verbose "Entering $($_)"
 			Set-Location "$($_)"
 
-            if(Test-Path "psModules")
-            {
+            if(Test-Path "psModules") {
                 Write-Verbose "Old repository folder detected: Removing..."
                 Remove-Item "psModules" -Recurse -Force
             }
@@ -40,8 +34,7 @@
 			Get-ChildItem |
 			Where {$_.PsIsContainer} |
 			ForEach {
-				if(Test-Path "../$($_)")
-				{
+				if(Test-Path "../$($_)") {
 					Write-Verbose "Old Module folder detected, removing..."
 					Remove-Item "../$($_)" -Recurse -Force
 				}

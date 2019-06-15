@@ -1,22 +1,22 @@
-﻿function New-Project()
-{
+﻿ function New-Project() {
     [CmdletBinding()]
-    param
-    (
+    Param (
         [String] $Name
     )
 
-    Write-Host "Creating Project Folder..."
-    New-Item -ItemType Directory -Path $Name
+	Process {
+		Write-Host "Creating Project Folder..."
+		New-Item -ItemType Directory -Path $Name
 
-    Write-Host "Entering Project Folder..."
-    Set-Location $Name
+		Write-Host "Entering Project Folder..."
+		Set-Location $Name
 
-    Write-Host "Creating src and bin folders..."
-    New-Item -ItemType Directory -Path "src"
-    New-Item -ItemType Directory -Path "bin"
+		Write-Host "Creating src and bin folders..."
+		New-Item -ItemType Directory -Path "src"
+		New-Item -ItemType Directory -Path "bin"
 
-    Write-Host "Creating Control class..."
-    Set-Location src
-    Invoke-WebRequest -Uri "https://www.jackwhelan.dev/snippets/Control.java" -Method GET -OutFile "Control.java"
+		Write-Host "Creating Control class..."
+		Set-Location src
+		Invoke-WebRequest -Uri "https://www.jackwhelan.dev/snippets/Control.java" -Method GET -OutFile "Control.java"
+	}
 }

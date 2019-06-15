@@ -19,14 +19,15 @@
 Function Get-AllRepos
 {
     [CmdletBinding()]
-    param
-    (
+	Param(
         [string] $user = "jackwhelan"
     )
 
-    (curl "https://api.github.com/users/$user/repos?page=1&per_page=100").Content |
-    ConvertFrom-Json |
-    %{ $_.clone_url } |
-    %{ & git clone $_ 2>&1 } |
-    %{ $_.ToString()}
+	Process {
+		(Invoke-WebRequest "https://api.github.com/users/$user/repos?page=1&per_page=100").Content |
+		ConvertFrom-Json |
+		%{ $_.clone_url } |
+		%{ & git clone $_ 2>&1 } |
+		%{ $_.ToString()}
+	}
 }

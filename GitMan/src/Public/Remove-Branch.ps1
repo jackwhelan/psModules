@@ -23,19 +23,19 @@
 Function Remove-Branch
 {
     [CmdletBinding()]
-    param
-    (
+    param(
 		[Parameter(mandatory=$true)]
         [string] $name,
 		[switch] $origin
     )
 
-	git branch -d $name
-	Write-Host "Local branch $($name) deleted."
-	
-	if ($origin)
-	{
-		git push --delete origin $name
-		Write-Host "Origin branch $($name) deleted."
+	Process {
+		git branch -d $name
+		Write-Host "Local branch $($name) deleted."
+		
+		if ($origin) {
+			git push --delete origin $name
+			Write-Host "Origin branch $($name) deleted."
+		}
 	}
 }

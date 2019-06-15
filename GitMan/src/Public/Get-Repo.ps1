@@ -30,12 +30,13 @@
 Function Get-Repo
 {
     [CmdletBinding()]
-    param
-    (
+    param(
         [string] $repo = "psModules",
         [string] $user = "jackwhelan",
         [string] $server = "http://github.com"
     )
 
-    git clone "$($server)/$($user)/$($repo)"
+	Process {
+		git clone "$($server)/$($user)/$($repo)"
+	}
 }

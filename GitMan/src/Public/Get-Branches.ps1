@@ -30,29 +30,21 @@
 Function Get-Branches
 {
     [CmdletBinding()]
-    param
-    (
+    param(
         [Switch] $remote,
 		[Switch] $local,
 		[Switch] $all
     )
 
-    if ( ($remote -eq $true) -And ($local -eq $false) -And ($all -eq $false) )
-	{
+    if ( ($remote -eq $true) -And ($local -eq $false) -And ($all -eq $false) ) {
 		git branch --list -r
-	}
-	elseif ( ($remote -eq $false) -And ($local -eq $true) -And ($all -eq $false) )
-	{
+	} elseif ( ($remote -eq $false) -And ($local -eq $true) -And ($all -eq $false) ) {
 		git branch --list
-	}
-	elseif ( ($remote -eq $false) -And ($local -eq $false) -And ($all -eq $true) )
-	{
+	} elseif ( ($remote -eq $false) -And ($local -eq $false) -And ($all -eq $true) ) {
 		git branch --list -a
-	}
-	else
-	{
-		Write-Host "Choose either -remote, -local or -all as an argument."
-		Write-Host "e.g. Get-Branches -remote"
-		Write-Host "This will return all remote branches."
+	} else {
+		Write-Host "Choose either -remote, -local or -all as an argument.
+		e.g. Get-Branches -remote
+		This will return all remote branches."
 	}
 }

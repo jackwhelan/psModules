@@ -20,37 +20,30 @@
 Function Invoke-StatusCheck
 {
     [CmdletBinding()]
-    param
-    (
+    param(
         [switch] $recursive
     )
 	
 	$current = (Get-Location).Path
-	if (Test-Path ".git")
-	{
+	if (Test-Path ".git") {
 		Write-Host "$current is a git repository, checking status..."
 		git status
 	}
-	else
-	{
+	else {
 		Write-Host "$current is not a git repository, skipping..."
 	}
 
-	if ($recursive)
-	{
+	if ($recursive) {
 		$dir = Get-ChildItem | ? {$_.PSIsContainer}
 		Write-Host "Recursive switch specified, checking subdirectories..."
 		New-LineBreak -l 60 -s "="
 		$dir | Foreach-Object {
 			Set-Location $_.FullName
-			if (Test-Path ".git")
-			{
+			if (Test-Path ".git") {
 				Write-Host "$_ is a git repository, checking status..."
 				git status
 				New-LineBreak -l 60 -s "="
-			}
-			else
-			{
+			} else {
 				Write-Host "$_ is not a git repository, skipping..."
 			}
 		}

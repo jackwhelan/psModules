@@ -17,30 +17,24 @@
    Invoke-Build -Recursive
 #>
 
-Function Invoke-Build
-{
+Function Invoke-Build {
     [CmdletBinding()]
-    param
-    (
+    param(
         [Switch] $Recursive
     )
 
     $root = Get-ChildItem | ?{$_.PSIsContainer}
 
-    if(Test-Path bin)
-    {
+    if(Test-Path bin) {
         Write-Host "Bin folder already exists, Skipping..."
     }
-    else
-    {
+    else {
         Write-Host "Creating bin folder..."
         New-Item -ItemType Directory -Path "bin"
     }
 
-    ForEach($folder in $root)
-    {
-        if ($folder -ne "bin")
-        {
+    ForEach($folder in $root) {
+        if ($folder -ne "bin") {
             Write-Host "====================`nEntering $($folder)...`n===================="
             Set-Location $folder
 

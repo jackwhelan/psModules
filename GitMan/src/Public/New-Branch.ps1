@@ -16,13 +16,14 @@
 Function New-Branch
 {
     [CmdletBinding()]
-    param
-    (
+    param(
 		[Parameter(mandatory=$true)]
         [string] $name
     )
-
-    git branch $name
-	git checkout $name
-	git push --set-upstream origin $name
+	
+	Process {
+		git branch $name
+		git checkout $name
+		git push --set-upstream origin $name
+	}
 }

@@ -1,23 +1,23 @@
 <#
  .Synopsis
-  Git fetcher
+  Git puller
 
  .Description
-  Call a git fetch in the current folder or in all subfolders if -recursive arg used.
+  Pull the latest commits of a repo or all sub-folder repos if you specify -recursive.
 
  .Parameter recursive
-  Check all subdirectories for repos and call a git fetch in each.
+  Check all subdirectories for repos and pull their latest code.
 
  .Example
-   # Call git fetch in the current repo.
-   Invoke-Fetch
+   # Call a git pull in the current repo.
+   Invoke-Pull
 
  .Example
-   # Call a git fetch in all subdirectory repos.
-   Invoke-Fetch -r
+   # Call a git pull in all subdirectory repos.
+   Invoke-Pull -r
 #>
 
-Function Invoke-Fetch
+Function Invoke-Pull
 {
     [CmdletBinding()]
     param(
@@ -26,8 +26,8 @@ Function Invoke-Fetch
 	
 	$current = (Get-Location).Path
 	if (Test-Path ".git") {
-		Write-Host "$current is a git repository, fetching..."
-		git fetch
+		Write-Host "$current is a git repository, pulling latest..."
+		git pull
 	}
 	else {
 		Write-Host "$current is not a git repository, skipping..."
@@ -40,8 +40,8 @@ Function Invoke-Fetch
 		$dir | Foreach-Object {
 			Set-Location $_.FullName
 			if (Test-Path ".git") {
-				Write-Host "$_ is a git repository, fetching..."
-				git fetch
+				Write-Host "$_ is a git repository, pulling latest..."
+				git pull
 				New-LineBreak -l 60 -s "="
 			} else {
 				Write-Host "$_ is not a git repository, skipping..."

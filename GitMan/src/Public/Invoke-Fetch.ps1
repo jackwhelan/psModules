@@ -17,7 +17,7 @@
    Invoke-StatusCheck -r
 #>
 
-Function Invoke-StatusCheck
+Function Invoke-Fetch
 {
     [CmdletBinding()]
     param(

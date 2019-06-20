@@ -1,4 +1,4 @@
-﻿Function Repair-DistribUtils
+Function Repair-PSLogging
 {
     [CmdletBinding()]
     Param()
@@ -47,14 +47,14 @@
 			    New-Item -ItemType directory "$($_)"
 		    }
                
-            Write-Verbose "Checking for old DistribUtils module in $($_)..."
-            If(Test-Path "$($_)/DistribUtils") {
+            Write-Verbose "Checking for old PSLogging module in $($_)..."
+            If(Test-Path "$($_)/PSLogging") {
                 Write-Verbose "Old module found, removing..."
-                Remove-Item "$($_)/DistribUtils" -Recurse -Force
+                Remove-Item "$($_)/PSLogging" -Recurse -Force
             }
 
-            Write-Verbose "Installing DistribUtils module in $($_)..."
-            Copy-Item "DistribUtils" "$($_)"
+            Write-Verbose "Installing PSLogging module in $($_)..."
+            Copy-Item "PSLogging" "$($_)"
         }
     }
 

@@ -1,4 +1,4 @@
-﻿Function Repair-DistribUtils
+Function Repair-JavaBuildUtils
 {
     [CmdletBinding()]
     Param()
@@ -47,14 +47,14 @@
 			    New-Item -ItemType directory "$($_)"
 		    }
                
-            Write-Verbose "Checking for old DistribUtils module in $($_)..."
-            If(Test-Path "$($_)/DistribUtils") {
+            Write-Verbose "Checking for old JavaBuildUtils module in $($_)..."
+            If(Test-Path "$($_)/JavaBuildUtils") {
                 Write-Verbose "Old module found, removing..."
-                Remove-Item "$($_)/DistribUtils" -Recurse -Force
+                Remove-Item "$($_)/JavaBuildUtils" -Recurse -Force
             }
 
-            Write-Verbose "Installing DistribUtils module in $($_)..."
-            Copy-Item "DistribUtils" "$($_)"
+            Write-Verbose "Installing JavaBuildUtils module in $($_)..."
+            Copy-Item "JavaBuildUtils" "$($_)"
         }
     }
 

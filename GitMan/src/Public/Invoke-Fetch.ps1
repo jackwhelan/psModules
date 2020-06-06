@@ -34,7 +34,7 @@ Function Invoke-Fetch
 	}
 
 	if ($recursive) {
-		$dir = Get-ChildItem | ? {$_.PSIsContainer}
+		$dir = Get-ChildItem | Where-Object {$_.PSIsContainer}
 		Write-Host "Recursive switch specified, checking subdirectories..."
 		New-LineBreak -l 60 -s "="
 		$dir | Foreach-Object {
@@ -46,6 +46,8 @@ Function Invoke-Fetch
 			} else {
 				Write-Host "$_ is not a git repository, skipping..."
 			}
-		}
+        }
+        
+        Set-Location ..
 	}
 }

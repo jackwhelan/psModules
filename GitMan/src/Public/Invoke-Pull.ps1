@@ -47,5 +47,7 @@ Function Invoke-Pull
 				Write-Host "$_ is not a git repository, skipping..."
 			}
 		}
-	}
+    }
+    
+    Set-Location ..
 }

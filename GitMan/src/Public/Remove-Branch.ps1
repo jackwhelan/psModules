@@ -17,7 +17,6 @@
   
  .Example
   # Delete the local and origin branch 'feature/logo'
-  
 #>
 
 Function Remove-Branch
@@ -31,7 +30,6 @@ Function Remove-Branch
 
 	Process {
 		git branch -d $name
-		Write-Host "Local branch $($name) deleted."
 		
 		if ($origin) {
 			git push --delete origin $name

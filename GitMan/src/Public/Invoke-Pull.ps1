@@ -34,7 +34,7 @@ Function Invoke-Pull
 	}
 
 	if ($recursive) {
-		$dir = Get-ChildItem | ? {$_.PSIsContainer}
+		$dir = Get-ChildItem | Where-Object {$_.PSIsContainer}
 		Write-Host "Recursive switch specified, checking subdirectories..."
 		New-LineBreak -l 60 -s "="
 		$dir | Foreach-Object {

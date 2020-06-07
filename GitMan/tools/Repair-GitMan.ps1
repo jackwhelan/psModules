@@ -54,7 +54,7 @@ Function Repair-GitMan
             }
 
             Write-Verbose "Installing Gitman module in $($_)..."
-            Copy-Item "GitMan" "$($_)"
+            Copy-Item -Path "GitMan" -Recurse -Destination "$($_)" -Container
         }
     }
 
